@@ -46,13 +46,13 @@ jobs:
         
           # Relative path(s) to SASS or SCSS file, eg. _scss/main.scss
           source: |
-            /css/scss/assemble/style.dev.scss
-            /css/scss/assemble/style.prod.scss
+            ./css/scss/assemble/style.dev.scss
+            ./css/scss/assemble/style.prod.scss
 
           # Path(s) compiled CSS should be saved, eg. ~/workspace_sass/assets/css/main.css
           destination: |
-              /css/style.dev.css
-              /css/style.prod.css
+              ./css/style.dev.css
+              ./css/style.prod.css
             
               # Array (Action splits on ":"), of directories to look under for imports and used modules
               includePaths: # optional
