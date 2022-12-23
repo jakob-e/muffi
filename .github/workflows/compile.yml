@@ -32,7 +32,7 @@ jobs:
             fetch-depth: 1
 
       - name: Move compiled CSS to path within pr-pages branch
-        run: mv /tmp/muffi/css
+        run: mv ./css
 
       - name: Add and Commit changes to pr-pages branch
         run: |
