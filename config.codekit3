@@ -55,7 +55,7 @@
       "pg" : 0,
       "sct" : 0
     },
-    "\/css\/scss\/assemble\/style.dev.scss" : {
+    "\/css\/scss\/assemble\/style-dev.scss" : {
       "aP" : 1,
       "bl" : 0,
       "co" : 0,
@@ -64,13 +64,13 @@
       "ft" : 4,
       "ma" : 0,
       "oA" : 0,
-      "oAP" : "\/css\/style.dev.css",
+      "oAP" : "\/css\/style-dev.css",
       "oF" : 2,
       "oS" : 0,
       "pg" : 0,
       "sct" : 0
     },
-    "\/css\/scss\/assemble\/style.prod.scss" : {
+    "\/css\/scss\/assemble\/style-prod.scss" : {
       "aP" : 1,
       "bl" : 0,
       "co" : 0,
@@ -79,7 +79,7 @@
       "ft" : 4,
       "ma" : 0,
       "oA" : 0,
-      "oAP" : "\/css\/style.prod.css",
+      "oAP" : "\/css\/style-prod.css",
       "oF" : 2,
       "oS" : 0,
       "pg" : 0,
@@ -460,7 +460,7 @@
       "pg" : 0,
       "sct" : 0
     },
-    "\/css\/style.dev.css" : {
+    "\/css\/style-dev.css" : {
       "aP" : 1,
       "bl" : 0,
       "ci" : 0,
@@ -468,11 +468,11 @@
       "ft" : 16,
       "ma" : 0,
       "oA" : 0,
-      "oAP" : "\/css\/style.dev-min.css",
+      "oAP" : "\/css\/style-dev-min.css",
       "oF" : 0,
       "pg" : 0
     },
-    "\/css\/style.prod.css" : {
+    "\/css\/style-prod.css" : {
       "aP" : 1,
       "bl" : 0,
       "ci" : 0,
@@ -480,9 +480,17 @@
       "ft" : 16,
       "ma" : 0,
       "oA" : 0,
-      "oAP" : "\/css\/style.prod-min.css",
+      "oAP" : "\/css\/style-prod-min.css",
       "oF" : 0,
       "pg" : 0
+    },
+    "\/README.html" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/README.html",
+      "oF" : 0
     },
     "\/README.md" : {
       "cB" : 0,

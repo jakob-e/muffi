@@ -1,7 +1,0 @@
-:is([data-comp=card], [data-comp^="card "]) {
-  color: brown;
-}
-
-[data-comp~=news]:is([data-comp=card], [data-comp^="card "]) {
-  color: lavender;
-}

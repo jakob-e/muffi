@@ -18,6 +18,6 @@ $config: null !default;
 @include render.compile($config) {
    
     @include component.card;
-    @include component.card-news;
+    @include component.card--news;
     
 }
