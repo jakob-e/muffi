@@ -2,14 +2,15 @@
   :is([data-comp=card], [data-comp^="card "]) {
     color: red;
   }
-  [data-comp~=news]:is([data-comp=card-news], [data-comp^="card-news "]) {
+  [data-comp~=news]:is([data-comp=card], [data-comp^="card "]) {
     color: blue;
   }
 }
+
 :is([data-comp=card], [data-comp^="card "]) {
   color: red;
 }
 
-[data-comp~=news]:is([data-comp=card-news], [data-comp^="card-news "]) {
+[data-comp~=news]:is([data-comp=card], [data-comp^="card "]) {
   color: blue;
 }

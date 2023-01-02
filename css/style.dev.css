@@ -9,10 +9,8 @@
 }
 
 /* -------------------------------------------------------------- *
-    component.card-news 
+    component.card 
  * -------------------------------------------------------------- */
-[data-comp~=news]:is([data-comp=card-news], [data-comp^="card-news "]) {
+[data-comp~=news]:is([data-comp=card], [data-comp^="card "]) {
   color: blue;
 }
-
-

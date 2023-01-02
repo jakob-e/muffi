@@ -57,9 +57,8 @@ $render-distill: false;
         $render-use-map: map.new() !global;
         $render-inspect: true !global;
 
-        
+        %#{string.unique-id()} {        
             @supports (ignore: '@rule bleed - this can be deleted') {
-                %#{string.unique-id()} {
                 @content;
             }
         }

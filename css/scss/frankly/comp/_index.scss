@@ -36,7 +36,7 @@ $context: null;
     $data: data-#{inspect($type or comp)};
     $comp: #{$type or comp}-#{$name};
     $once: if($variation, #{$comp}-#{$variation}, $comp);
-    $name: if($variation, #{$name}-#{$variation}, $name);
+    // $name: if($variation, #{$name}-#{$variation}, $name);
 
 
     // prevent naming collisions 
