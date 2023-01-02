@@ -3,3 +3,21 @@
 // Config
 // 
 // -----------------------------------------------------------------------------
+
+
+$color-config: (
+    light: (
+        'none': transparent
+    ),
+    dark: (),
+    dim: (),
+);
+
+
+
+
+
+
+@use '../frankly/config' with(
+    $color-config: $color-config
+); 

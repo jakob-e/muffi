@@ -1,23 +1,17 @@
 // -----------------------------------------------------------------------------
 // 
-// Assemble 
+// Card News 
 // 
 // -----------------------------------------------------------------------------
-@use './config';
-@use '../frankly/render';
-@use '../component';
-
-
+@use '../../frankly/comp';
 
 
 
 // -----------------------------------------------------------------------------
-// Compile
+// Card news mixin
 // -----------------------------------------------------------------------------
-$config: null !default;
-@include render.compile($config) {
-   
-    @include component.card;
-    @include component.card-news;
-    
+@mixin news {
+    @include comp.create('card','news') {
+        color: blue;
+    }
 }
