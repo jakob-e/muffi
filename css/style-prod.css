@@ -1,1 +1,7 @@
-// PROD style
+:is([data-comp=card], [data-comp^="card "]) {
+  color: lime;
+}
+
+[data-comp~=news]:is([data-comp=card], [data-comp^="card "]) {
+  color: lavender;
+}
