@@ -12,6 +12,6 @@
 // -----------------------------------------------------------------------------
 @mixin card {
     @include comp.create('card') {
-        color: red;
+        color: brown;
     }
 }
