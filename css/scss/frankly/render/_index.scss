@@ -41,19 +41,25 @@ $render-distill: false;
 // -----------------------------------------------------------------------------
 @mixin compile($config: map.new()) {
 
+    $render-mode: map.get($config, mode);
     $render-distill: map.get($config, distill) !global;
     $render-minify:  map.get($config, minify)  !global;    
     $render-comment: map.get($config, comment) !global;
 
-    @if $distill {
+    @if $render-comment {
+        @include comment($render-mode);
+    }
+
+    @if $render-distill {
 
         // create render use map and enable
         // render inspect mode 
         $render-use-map: map.new() !global;
         $render-inspect: true !global;
 
-        %#{string.unique-id()} {
+        
             @supports (ignore: '@rule bleed - this can be deleted') {
+                %#{string.unique-id()} {
                 @content;
             }
         }

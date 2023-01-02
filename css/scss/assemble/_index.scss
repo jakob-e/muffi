@@ -3,4 +3,11 @@
 // Assemble 
 // 
 // -----------------------------------------------------------------------------
+@use '../frankly/render';
 
+
+
+$config: null !default;
+@include render.compile($config) {
+    
+}
