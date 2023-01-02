@@ -12,6 +12,6 @@
 // -----------------------------------------------------------------------------
 @mixin news {
     @include comp.create('card','news') {
-        color: blue;
+        color: orange;
     }
 }
