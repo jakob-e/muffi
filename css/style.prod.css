@@ -3,7 +3,7 @@
     color: red;
   }
   [data-comp~=news]:is([data-comp=card], [data-comp^="card "]) {
-    color: magenta;
+    color: lavender;
   }
 }
 
@@ -12,5 +12,5 @@
 }
 
 [data-comp~=news]:is([data-comp=card], [data-comp^="card "]) {
-  color: magenta;
+  color: lavender;
 }
