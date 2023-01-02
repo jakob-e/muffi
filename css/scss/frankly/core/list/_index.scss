@@ -1,0 +1,138 @@
+// -----------------------------------------------------------------------------
+//
+// Sass List Functions
+//
+// -----------------------------------------------------------------------------
+@use 'sass:list';
+@use 'sass:meta';
+
+
+
+// -----------------------------------------------------------------------------
+// Forwards - sass:list functions
+// https://sass-lang.com/documentation/modules/list
+// -----------------------------------------------------------------------------
+@forward  'sass:list';
+
+
+
+// -----------------------------------------------------------------------------
+// Remove item from list
+// -----------------------------------------------------------------------------
+@function remove-nth($list, $n) {
+	$result: ();
+	$n: if(
+		meta.type-of($n) != number,
+		list.index($list, $n),
+		$n
+	);
+	@if not $n { @return $list; }
+	$n: if($n < 0, list.length($list) + $n + 1, $n);
+	$bracketed: list.is-bracketed($list);
+	$separator: list.separator($list);
+	@for $i from 1 through length($list){
+		@if $i != $n { $result: list.append($result, list.nth($list, $i)); }
+	}
+	@return list.join((), $result, $separator, $bracketed);
+}
+@function remove($list, $n) {
+	@return remove-nth($list, $n);
+}
+
+
+
+// -----------------------------------------------------------------------------
+// Get nth item 
+// Overrides list.nth to better align with other native
+// functions by returning null rather than throwing a
+// length error
+// -----------------------------------------------------------------------------
+@function nth($list, $n){
+	$n: if($n < 0, list.length($list) + $n + 1, $n);	
+	@return if(list.length($list) < $n, null, list.nth($list, $n));
+}
+
+
+
+// -----------------------------------------------------------------------------
+// Prepend 
+// TODO - make closer to append by implementing 
+// separator check/define 
+// -----------------------------------------------------------------------------
+@function prepend($list, $val, $separator: auto){
+	@return flat($val, $list);
+}
+
+
+// -----------------------------------------------------------------------------
+// Comma 
+// -----------------------------------------------------------------------------
+@function comma($list){
+	$comma-list: ();  
+	@each $item in $list {
+		$comma-list: list.append($comma-list, $item, comma);
+	}
+	@return $comma-list;
+}
+
+
+
+// -----------------------------------------------------------------------------
+// Space 
+// -----------------------------------------------------------------------------
+@function space($list){
+	$space-list:();  
+	@each $item in $list {
+		$space-list: list.append($space-list, $item, space);
+	}
+	@return $space-list;
+}
+
+
+
+
+// -----------------------------------------------------------------------------
+// Unique 
+// Returns a list containing only unique items
+// -----------------------------------------------------------------------------
+@function unique($list) {
+    $unique: ();
+	$sep: list-separator($list);
+    @each $item in $list {
+        @if not list.index($unique, $item) {
+            $unique: list.append($unique, $item, $sep);
+        }
+    }
+    @return $unique;
+}
+
+
+// -----------------------------------------------------------------------------
+// Flat 
+// Returns a flattened list (preserves maps)
+// list.flat((foo), (key: val) bar [baz, boo], (bim, (bam, bum))) => 
+// foo (key: val) bar baz boo bim bam bum
+// -----------------------------------------------------------------------------
+@function flat($args...) {
+    $list: ();
+	$sep: list-separator($list);
+    @each $arg in $args { 
+		@if meta.type-of($arg) == map {
+			$list: list.append($list, $arg, $sep);
+		} 
+		@else {
+			$arg: if(meta.type-of($arg) == list, flat($arg...), $arg);
+			$list: list.join($list, $arg, $sep);
+		}
+    }
+    @return $list;
+}
+
+
+
+// -----------------------------------------------------------------------------
+// New 
+// -----------------------------------------------------------------------------
+@function new(){
+	@return ();
+}

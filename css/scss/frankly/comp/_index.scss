@@ -1,0 +1,108 @@
+// -----------------------------------------------------------------------------
+//
+// Component 
+// 
+// 
+// [data-comp^~=card]
+// [data-comp^~=card][data-comp~=fancy]
+// 
+// -----------------------------------------------------------------------------
+@use '../core/meta';
+@use '../core/string';
+@use '../core/list';
+@use '../core/map';
+
+@use '../render';
+@use '../query';
+@use '../core/cast';
+
+
+
+
+
+// -----------------------------------------------------------------------------
+// 
+// -----------------------------------------------------------------------------
+$type: null !default;
+$context: null; 
+
+
+// -----------------------------------------------------------------------------
+// 
+// -----------------------------------------------------------------------------
+@mixin create($name, $variation: null) {
+
+    // variables
+    $data: data-#{inspect($type or comp)};
+    $comp: #{$type or comp}-#{$name};
+    $once: if($variation, #{$comp}-#{$variation}, $comp);
+    $name: if($variation, #{$name}-#{$variation}, $name);
+
+
+    // prevent naming collisions 
+    @if render.once($once) {
+        @error ("#{$type or component}: '#{$once}' is already in use please provide another name");
+    }
+
+
+    // prevent multi includes
+    @include render.once($once) {
+        $context: $once !global;
+
+        @include render.comment('#{$type or component}.#{$name}');
+
+        // escape wrapping 
+        @include render.at-root {
+
+            // 
+            // component 
+            // 
+            @if not $variation {
+                :is([#{$data}="#{$name}"],[#{$data}^="#{$name} "]) {
+                    @content;
+                }
+            }
+            
+            // 
+            // variation 
+            // 
+            @else {
+
+
+                // warn about missing component base
+                @if not render.once($comp) {
+                    $warn: '\A';
+                    $warn: $warn + '\A ⚠️ Missing #{$type or component}';
+                    $warn: $warn + '\A'; 
+                    $warn: $warn + '\A @include #{$type or comp}.#{$name};  👈 include this before variation'; 
+                    $warn: $warn + '\A @include #{$type or comp}.#{$name}-#{$variation};';
+                    $warn: $warn + '\A'; 
+                    @warn($warn);
+                }
+
+                [#{$data}~="#{$variation}"]:is([#{$data}="#{$name}"],[#{$data}^="#{$name} "]) {
+                    @content;
+                }
+            }
+        }
+
+        $context: null !global;
+    }
+
+}
+
+
+
+
+
+@mixin context($query: null) {
+    @if not $query and not meta.content-exists() {
+        container-type: inline-size;
+        container-name: $context;
+    } 
+    @else {
+        @include query.container($query) {
+            @content;
+        }
+    }
+}

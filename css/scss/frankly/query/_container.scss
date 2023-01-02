@@ -1,0 +1,75 @@
+// -----------------------------------------------------------------------------
+//
+// Container Query
+// 
+// -----------------------------------------------------------------------------
+@use '../render';
+@use '../core/cast';
+@use '../core/meta';
+@use '../core/string';
+@use '../core/list';
+@use '../core/map';
+
+
+
+
+
+@mixin container($query: null) {
+	
+	// tidy up
+	$name: null;
+	$prop: null;
+	$value: null;
+	
+	@if $query {
+		@each $item in $query {
+			@if meta.type-of($item) == 'string' {
+				$name: string.unquote($item);
+			}
+			@if meta.type-of($item) == 'list' {
+				$prop: list.nth($item, 1);
+				$value: list.nth($item, 2);				
+			}
+			@if meta.type-of($item) == 'map' {
+				$prop: list.nth(map.keys($item), 1);
+				$value: list.nth(map.values($item), 1);				
+			}
+		}
+	}
+	
+	// container
+	@if not meta.content-exists() {
+		container-type: inline-size;
+		//@if render-if('container-NAME') {
+		container-name: $name;
+		//}
+	}
+
+
+	// context 
+	@else if $query {
+
+		// 1) remove prop if value is 0 
+		// 2) convert value unit to rem 
+		// 3) add name to query if found
+		// 4) add prop: value to query or (inline-size) if missing 
+		$prop:  if(cast.num($value) == 0, null, $prop); // 1
+		$value: if($value, cast.rem($value), $value);	 // 2	
+		
+		$query: if($name, $name, string.unquote('')); // 3
+		$query: if($prop, $query ($prop: $value), $query string.unquote('(inline-size)')); // 4
+	
+		@if render.log() { 
+			@content;  
+		}
+
+		@else {
+            // Confused linter - this is not an error!
+            @container #{meta.inspect($query)} { @content; } 
+		}
+	} 
+
+	@else {
+        @content;
+	}
+}

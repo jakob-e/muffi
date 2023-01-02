@@ -1,0 +1,92 @@
+// -----------------------------------------------------------------------------
+//
+//  Sass String Functions 
+// 
+// -----------------------------------------------------------------------------
+@use 'sass:string';
+@use '../cast';
+
+
+
+// -----------------------------------------------------------------------------
+// Forwards - sass:string functions
+// https://sass-lang.com/documentation/modules/string
+// -----------------------------------------------------------------------------
+@forward 'sass:string';
+
+
+
+// -----------------------------------------------------------------------------
+// String Replace 
+// -----------------------------------------------------------------------------
+@function replace($string, $search, $replace: '') {
+    $index: string.index($string, $search);
+      @if $index {
+        @return string.slice(
+            $string, 1, $index - 1) + 
+            $replace + 
+            replace(string.slice($string, $index + string.length($search)), 
+            $search, 
+            $replace
+        );
+    }
+    @return $string;
+}
+
+
+
+// -----------------------------------------------------------------------------
+// Trims the start/left of the string
+// -----------------------------------------------------------------------------
+@function trim-start ($string) {
+    @if (string.slice($string, 1, 1) == ' ') {
+        @return trim-start(string.slice($string, 2));
+    } @else {
+        @return $string;
+    }
+}
+
+
+
+// -----------------------------------------------------------------------------
+// Trims the end/right of the string
+// -----------------------------------------------------------------------------
+@function trim-end ($string) {
+    @if (string.slice($string, string.length($string), -1) == ' ') {
+        @return trim-end(string.slice($string, 1, -2));
+    } @else {
+        @return $string;
+    }
+}
+
+
+
+// -----------------------------------------------------------------------------
+// Trims both the start and end of the string
+// -----------------------------------------------------------------------------
+@function trim ($string) {
+    @return trim-start(trim-end($string));
+}
+
+
+
+// -----------------------------------------------------------------------------
+// Casts a value to string
+// -----------------------------------------------------------------------------
+@function cast ($value, $quoted: false) {
+    $value: cast.string($value);
+    @return if(
+        $quoted,
+        string.quote($value),
+        $value
+    );
+}
+
+
+// -----------------------------------------------------------------------------
+// Index (includes)
+// -----------------------------------------------------------------------------
+ @function index($string, $substring) {
+    @return string.index(cast.string($string), $substring);
+ }
+

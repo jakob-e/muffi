@@ -1,0 +1,71 @@
+// -----------------------------------------------------------------------------
+// 
+// Var  
+// 
+// -----------------------------------------------------------------------------
+@use 'sass:meta';
+@use 'sass:string';
+@use 'sass:list';
+
+
+$var-minify: false;
+$var-list: ();    
+
+
+
+
+// -----------------------------------------------------------------------------
+// Getter
+// -----------------------------------------------------------------------------
+@function var($name, $fallback: null) {
+    $name: register($name);
+    @return string.unquote(if(
+		$fallback,
+		'var(#{$name}, #{$fallback})',
+		'var(#{$name})'
+	));
+}
+
+@function css($name, $fallback: null) {
+    @return var($name, $fallback);
+}
+
+
+// -----------------------------------------------------------------------------
+// Setter
+// -----------------------------------------------------------------------------
+@mixin var($name, $value){
+    $name: register($name);
+    #{$name}: #{$value};
+}
+@mixin css($name, $value){
+    @include var($name, $value); 
+}
+
+
+// -----------------------------------------------------------------------------
+// Name
+// -----------------------------------------------------------------------------
+@function name($name) {
+    @return if(
+        string.index($name, --) == 1, 
+        $name, 
+        --#{$name}
+    );
+}
+
+
+// -----------------------------------------------------------------------------
+// Registration 
+// -----------------------------------------------------------------------------
+@function register($name) {
+    $name: name($name + '');
+	@if not list.index($var-list, $name) { 
+        $var-list: list.append($var-list, $name) !global; 
+    }
+    @return if(
+        $var-minify, 
+        --#{list.index($var-list, $name)}, 
+        #{$name}
+    );
+}

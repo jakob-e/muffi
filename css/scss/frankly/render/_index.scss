@@ -1,0 +1,108 @@
+// -----------------------------------------------------------------------------
+//
+// Render 
+// 
+// -----------------------------------------------------------------------------
+@use '../core/meta';
+@use '../core/string';
+@use '../core/list';
+@use '../core/map';
+
+
+
+$render-once-list: list.new();
+$render-use-map: null;
+$render-inspect: false;
+$render-comment: true;
+$render-minify:  false;
+$render-distill: false;
+
+
+// -----------------------------------------------------------------------------
+// Once
+// Ensure mixins does not produce redundant content 
+// if included more than once
+// -----------------------------------------------------------------------------
+@function once($name) {
+    @return list.index($render-once-list, inspect($name));
+}
+@mixin once($name) {
+    @if not once($name) {
+        $render-once-list: list.append($render-once-list, $name) !global;
+        @content;
+    }
+}
+
+
+
+
+// -----------------------------------------------------------------------------
+// Compile
+// -----------------------------------------------------------------------------
+@mixin compile($config: map.new()) {
+
+    $render-distill: map.get($config, distill) !global;
+    $render-minify:  map.get($config, minify)  !global;    
+    $render-comment: map.get($config, comment) !global;
+
+    @if $distill {
+
+        // create render use map and enable
+        // render inspect mode 
+        $render-use-map: map.new() !global;
+        $render-inspect: true !global;
+
+        %#{string.unique-id()} {
+            @supports (ignore: '@rule bleed - this can be deleted') {
+                @content;
+            }
+        }
+
+        // reset render once list and disable
+        // render inspect mode 
+        $render-once-list: list.new() !global;
+        $render-inspect: false !global;
+    }
+
+    @content;
+}
+
+
+
+// -----------------------------------------------------------------------------
+// At root 
+// -----------------------------------------------------------------------------
+@mixin at-root {
+    @if false { @content; }
+    @else { @at-root { @content; } }
+}
+
+
+
+// -----------------------------------------------------------------------------
+// Comment 
+// -----------------------------------------------------------------------------
+@mixin comment($comment) {
+    @if $render-comment {
+        @if not meta.content-exists() {
+            
+            /* -------------------------------------------------------------- *
+                #{ string.unquote($comment + '') } 
+             * -------------------------------------------------------------- */ 
+        } @else {
+            @content;
+        }
+
+    }
+}
+
+
+
+// -----------------------------------------------------------------------------
+// Log
+// -----------------------------------------------------------------------------
+@function log(){ @return false; }
+
+
+@function use(){ @return false; }
+@function used(){ @return false; }

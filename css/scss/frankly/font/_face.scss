@@ -1,0 +1,41 @@
+// -----------------------------------------------------------------------------
+// 
+// Font face
+// 
+// -----------------------------------------------------------------------------
+@use '../core/meta';
+@use '../core/string';
+@use '../core/list';
+@use '../core/map';
+@use '../core/cast';
+@use '../render';
+@use '../url';
+
+
+
+$font-type-list: ();
+
+
+@mixin face($family, $types) {
+
+
+
+    @include render.at-root {
+
+        @each $type in $types {
+            $weight: cast.num($type);
+            $style: if(string.index($type, i), italic, normal);
+            
+            @font-face {
+                font-family: string.quote($family);
+                src: url.font(#{string.to-lower-case($family)}-#{$type} + '.woff2') format('woff2');
+                font-weight: $weight;
+                font-style: $style;
+
+                // optional ciontent eg. swap 
+                @content;
+            }
+        }
+    }
+
+}

@@ -1,0 +1,45 @@
+// -----------------------------------------------------------------------------
+//
+// Sass Map Functions
+//
+// -----------------------------------------------------------------------------
+@use 'sass:map';
+@use 'sass:meta';
+
+
+
+// -----------------------------------------------------------------------------
+// Forwards - sass:map functions
+// https://sass-lang.com/documentation/modules/map
+// -----------------------------------------------------------------------------
+@forward 'sass:map';
+
+
+
+// -----------------------------------------------------------------------------
+// Quote map keys 
+// Ensures unquoted keys are treated as strings 
+// e.g. colors (white != "white")  
+// -----------------------------------------------------------------------------
+@function quote-keys($map) {
+    $return-map: ();
+    @each $key, $value in $map {
+        @if meta.type-of($value) == map {
+            $value: quote-keys($value);
+        }
+        $key: $key + '';
+        $return-map: map.set($return-map, $key, $value)
+    }
+    @return $return-map;
+}
+
+
+// -----------------------------------------------------------------------------
+// New/empty map 
+// Ensures correct map type - type-of(map.new()) == map
+// -----------------------------------------------------------------------------
+@function new() {
+    @return map.remove((x:x),x);
+}
+@function empty() { @return new() }
+
