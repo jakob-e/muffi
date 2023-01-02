@@ -78,7 +78,8 @@ $render-distill: false;
 // At root 
 // -----------------------------------------------------------------------------
 @mixin at-root {
-    @if false { @content; }
+    // avoid @rule hoisting in inspect mode
+    @if $render-inspect { @content; }
     @else { @at-root { @content; } }
 }
 

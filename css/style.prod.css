@@ -1,12 +1,3 @@
-@supports (ignore: "@rule bleed - this can be deleted") {
-  :is([data-comp=card], [data-comp^="card "]) {
-    color: brown;
-  }
-  [data-comp~=news]:is([data-comp=card], [data-comp^="card "]) {
-    color: lavender;
-  }
-}
-
 :is([data-comp=card], [data-comp^="card "]) {
   color: brown;
 }
