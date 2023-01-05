@@ -115,6 +115,21 @@
       "pg" : 0,
       "sct" : 0
     },
+    "\/css\/scss\/component\/card\/_card--news.scss" : {
+      "aP" : 0,
+      "bl" : 0,
+      "co" : 0,
+      "dP" : 10,
+      "ec" : 1,
+      "ft" : 4,
+      "ma" : 0,
+      "oA" : 1,
+      "oAP" : "\/css\/scss\/component\/card\/_card--news.css",
+      "oF" : 0,
+      "oS" : 0,
+      "pg" : 0,
+      "sct" : 0
+    },
     "\/css\/scss\/component\/card\/_card.scss" : {
       "aP" : 0,
       "bl" : 0,
@@ -140,21 +155,6 @@
       "ma" : 0,
       "oA" : 1,
       "oAP" : "\/css\/scss\/component\/card\/_index.css",
-      "oF" : 0,
-      "oS" : 0,
-      "pg" : 0,
-      "sct" : 0
-    },
-    "\/css\/scss\/component\/card\/_news.scss" : {
-      "aP" : 0,
-      "bl" : 0,
-      "co" : 0,
-      "dP" : 10,
-      "ec" : 1,
-      "ft" : 4,
-      "ma" : 0,
-      "oA" : 1,
-      "oAP" : "\/css\/scss\/component\/card\/_news.css",
       "oF" : 0,
       "oS" : 0,
       "pg" : 0,

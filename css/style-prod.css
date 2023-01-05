@@ -3,5 +3,5 @@
 }
 
 [data-comp~=news]:is([data-comp=card], [data-comp^="card "]) {
-  color: lavender;
+  color: orange;
 }

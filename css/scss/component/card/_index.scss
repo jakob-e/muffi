@@ -5,7 +5,10 @@
 // -----------------------------------------------------------------------------
 
 @forward './card';
-@forward './news' as card--*;
+@forward './card--news';
+
+// 
+// @forward './news' as card--*;
 
 
 

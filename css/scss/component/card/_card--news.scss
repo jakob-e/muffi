@@ -8,10 +8,10 @@
 
 
 // -----------------------------------------------------------------------------
-// Card news mixin
+// Card news variation
 // -----------------------------------------------------------------------------
-@mixin news {
+@mixin card--news {
     @include comp.create('card','news') {
-        color: lavender;
+        color: orange;
     }
 }
